@@ -2,9 +2,11 @@
   "name": "eyedeeme",
   "version": "0.0.1",
   "dependencies": {
-    "express": "*",
+    "express": "2.5.2",
     "postprocess": "0.0.2",
-    "mongodb": "0.9.6-16"
+    "mongodb": "0.9.6-16",
+    "jwcrypto": "0.1.0",
+    "ejs": "0.6.1"
   },
   "scripts": {
     "start": "node server/main.js"

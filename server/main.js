@@ -5,7 +5,8 @@ const
 express = require('express'),
 postprocess = require('postprocess'),
 url = require('url'),
-path = require('path');
+path = require('path'),
+crypto = require('./crypto');
 
 // the key with which session cookies are encrypted
 const COOKIE_SECRET = process.env.SEKRET || 'you love, i love, we all love beer!';
@@ -66,6 +67,17 @@ app.use(postprocess.middleware(function(req, body) {
   return body.toString().replace(new RegExp("https://browserid.org", 'g'), browseridURL);
 }));
 
+// use ejs for template rendering
+app.set('view engine', 'ejs');
+
+// serve the "declaration of support"
+app.get('/.well-known/vep', function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.render('vep', {
+    layout: false,
+    pubKey: crypto.pubKey
+  });
+});
 
 // Tell express from where it should serve static resources
 app.use(express.static(path.join(path.dirname(__dirname), "static")));
