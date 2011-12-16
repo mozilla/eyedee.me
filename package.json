@@ -1,0 +1,12 @@
+{
+  "name": "eyedeeme",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "*",
+    "postprocess": "0.0.2",
+    "mongodb": "0.9.6-16"
+  },
+  "scripts": {
+    "start": "node server/main.js"
+  }
+}
