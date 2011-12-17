@@ -1,7 +1,7 @@
 const jwk = require("jwcrypto/jwk");
 
-exports.pubKey = process.env['PUBLIC_KEY'];
-exports.privKey = process.env['PRIVATE_KEY'];
+exports.pubKey = JSON.parse(process.env['PUBLIC_KEY']);
+exports.privKey = JSON.parse(process.env['PRIVATE_KEY']);
 
 if (!exports.pubKey) {
   if (exports.pubKey != exports.privKey) {
