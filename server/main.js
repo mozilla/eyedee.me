@@ -25,6 +25,18 @@ var localHostname = undefined;
 // create a webserver using the express framework
 var app = express.createServer();
 
+// let's install a handler for '/__heartbeat__' which monitoring software can
+// use (hit before logging)
+app.use(function(req, res, next) {
+  if (req.method === 'GET' && req.path === '/__heartbeat__') {
+    res.writeHead(200);
+    res.write('ok');
+    res.end();
+  } else {
+    return next();
+  }
+});
+
 // do some logging
 app.use(express.logger({ format: 'dev' }));
 
