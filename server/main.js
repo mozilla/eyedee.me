@@ -81,6 +81,7 @@ app.use(postprocess.middleware(function(req, body) {
 
 // use ejs for template rendering
 app.set('view engine', 'ejs');
+app.set("views", path.join(__dirname, "..", "views"));
 
 // serve the "declaration of support"
 app.get('/.well-known/vep', function(req, res) {
