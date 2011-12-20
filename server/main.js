@@ -81,6 +81,7 @@ app.use(postprocess.middleware(function(req, body) {
 
 // use ejs for template rendering
 app.set('view engine', 'ejs');
+app.register('.html', require('ejs'));
 app.set("views", path.join(__dirname, "..", "views"));
 
 // serve the "declaration of support"
@@ -90,6 +91,18 @@ app.get('/.well-known/vep', function(req, res) {
     layout: false,
     pubKey: crypto.pubKey
   });
+});
+
+// serve the vep "provisioning page"
+app.get('/vep/provision', function(req, res) {
+  res.setHeader('Content-Type', 'text/html');
+  res.render('provision.html', { layout: false });
+});
+
+// serve the vep "authentication page"
+app.get('/vep/sign_in', function(req, res) {
+  res.setHeader('Content-Type', 'text/html');
+  res.render('sign_in.html', { layout: false });
 });
 
 // Tell express from where it should serve static resources

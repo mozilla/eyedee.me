@@ -1,12 +1,14 @@
 const jwk = require("jwcrypto/jwk");
 
-exports.pubKey = JSON.parse(process.env['PUBLIC_KEY']);
-exports.privKey = JSON.parse(process.env['PRIVATE_KEY']);
+try {
+  exports.pubKey = JSON.parse(process.env['PUBLIC_KEY']);
+  exports.privKey = JSON.parse(process.env['PRIVATE_KEY']);
+} catch(e) { }
 
 if (!exports.pubKey) {
   if (exports.pubKey != exports.privKey) {
     throw "inconsistent configuration!  if privKey is defined, so must be pubKey";
-  } 
+  }
   // if no keys are provided emit a nasty message and generate some
   console.log("WARNING: you're using ephemeral keys.  They will be purged at restart.");
 
@@ -15,4 +17,4 @@ if (!exports.pubKey) {
 
   exports.pubKey = JSON.parse(keypair.publicKey.serialize());
   exports.privKey = JSON.parse(keypair.secretKey.serialize());
-} 
+}
