@@ -108,6 +108,24 @@ app.get('/vep/sign_in', function(req, res) {
   res.render('sign_in.html', { layout: false });
 });
 
+// web service api
+app.get('/api/whoami', function(req, res) {
+  res.json({
+    who: "lloyd@eyedee.me"
+  });
+});
+
+app.post('/api/cert_key', function(req, res) {
+  crypto.cert_key(req.body.pubkey, 'lloyd@hilaiel.com', req.body.duration, function(err, cert) {
+    if (err) {
+      res.writeHead(500);
+      res.end();
+    } else {
+      res.json({ cert: cert });
+    }
+  });
+});
+
 // Tell express from where it should serve static resources
 app.use(express.static(path.join(path.dirname(__dirname), "static")));
 
