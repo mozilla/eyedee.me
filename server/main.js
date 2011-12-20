@@ -96,7 +96,10 @@ app.get('/.well-known/vep', function(req, res) {
 // serve the vep "provisioning page"
 app.get('/vep/provision', function(req, res) {
   res.setHeader('Content-Type', 'text/html');
-  res.render('provision.html', { layout: false });
+  res.render('provision.html', {
+    layout: false,
+    browserid_origin: determineBrowserIDURL(req)
+  });
 });
 
 // serve the vep "authentication page"
