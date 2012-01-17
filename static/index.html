@@ -4,18 +4,56 @@
     <meta charset="utf-8">
     <title>EyeDee.Me - Easy to use email aliases</title>
     <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+    <link href='css/style.css' type='text/css' rel='stylesheet'>
   </head>
   <body>
-    <p>
-      EyeDee.Me provides an easy way to get an email aliases that you
-      can use to identify yourself on the web.
-    </p>
-    <p>
-      Why should I care?
-    </p>
-    <p>
-      XXX
+    <div id="header">
+      <div>
+        <div class="state"><a class="signin" href="#">sign in</a></div>
+        <div class="title">EyeDee.Me</div>
+        <div class="subtitle">BrowserID Optimized email addresses</div>
+      </div>
+    </div>
+    <div id="main" class="content">
+      <p>
+        <strong>eyedee.me</strong> is an example "BrowserID primary" - that is, a web site that
+        you can get a (non-functional) email address that is optimized for use with
+        BrowserID.
       </p>
+      <p>
+        <span class="warning">This is not a real product</span>.  It is just an example to
+        show people how they can build first-class BrowserID support into their existing
+        product (products like gmail, that already have a login that users strongly identify
+        with and is an email address).
+      <p>
+      <p>
+        To get your very own <strong>eyedee.me</strong> address so you can try it out,
+        just <a class="signin" href="#">sign in</a>.
+      </p>
+    </div>
+    <div id="signup" class="content">
+      <p>
+        To sign into an existing <strong>eyedee.me</strong> account, or get a new one, just provide
+        a username and password:
+      </p>
+
+      <form>
+        Username: <input type="text" id="username">@eyedee.me</input><br>
+        Password: <input type="password" id="password"></input><br>
+        <button>Sign In</button>
+      </form>
+
+    </div>
+    <div id="manage" class="content">
+      Welcome to your <strong>eyedee.me</strong> account!  To see how "primary" support works
+      in BrowserID, you can go log into any site that supports BrowserID using
+      <strong><span class="username">&lt;your username&gt;</span>@eyedee.me</strong> as your
+      email address.
+    </div>
   </body>
   <script src="https://browserid.org/include.js" type="text/javascript"></script>
+  <script src="/js/jquery.js" type="text/javascript"></script>
+  <script src="/js/main.js" type="text/javascript"></script>
 </html>
