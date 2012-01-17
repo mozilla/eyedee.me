@@ -4,9 +4,10 @@
   "dependencies": {
     "express": "2.5.2",
     "postprocess": "0.0.2",
-    "mongodb": "0.9.6-16",
+    "mysql": "0.9.5",
     "ejs": "0.6.1",
-    "jwcrypto": "0.1.1"
+    "jwcrypto": "0.1.1",
+    "client-session": "0.0.2"
   },
   "scripts": {
     "start": "node server/main.js"

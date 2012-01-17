@@ -6,10 +6,12 @@ express = require('express'),
 postprocess = require('postprocess'),
 url = require('url'),
 path = require('path'),
-crypto = require('./crypto');
+crypto = require('./crypto'),
+wsapi = require('./wsapi.js'),
+cookieSessions = require("cookie-sessions");
 
 // the key with which session cookies are encrypted
-const COOKIE_SECRET = process.env.SEKRET || 'you love, i love, we all love beer!';
+const COOKIE_SECRET = process.env.SEKRET || 'super sekret sekret';
 
 // The IP Address to listen on.
 const IP_ADDRESS = process.env.IP_ADDRESS || '127.0.0.1';
@@ -39,9 +41,6 @@ app.use(function(req, res, next) {
 
 // do some logging
 app.use(express.logger({ format: 'dev' }));
-
-// parse cookies
-app.use(express.cookieParser());
 
 // parse post bodies
 app.use(express.bodyParser());
@@ -73,7 +72,16 @@ function determineBrowserIDHost(req) {
   return determineBrowserIDURL(req).replace(/http(s?):\/\//, '');
 }
 
-// a substitution middleware allows us to easily point at different browserid servers
+// encrypted cookie based session support, using
+// https://github.com/benadida/node-client-sessions
+app.use(cookieSessions({
+  cookieName: 'eyedeeme_auth',
+  secret: COOKIE_SECRET,
+  cookie: { path: '/api/' }
+}));
+
+// a substitution middleware allows us to easily point at different
+// browserid servers
 app.use(postprocess.middleware(function(req, body) {
   var browseridURL = determineBrowserIDURL(req);
   return body.toString().replace(new RegExp("https://browserid.org", 'g'), browseridURL);
@@ -108,23 +116,7 @@ app.get('/browserid/sign_in', function(req, res) {
   res.render('sign_in.html', { layout: false });
 });
 
-// web service api
-app.get('/api/whoami', function(req, res) {
-  res.json({
-    who: "lloyd@eyedee.me"
-  });
-});
-
-app.post('/api/cert_key', function(req, res) {
-  crypto.cert_key(req.body.pubkey, 'lloyd@hilaiel.com', req.body.duration, function(err, cert) {
-    if (err) {
-      res.writeHead(500);
-      res.end();
-    } else {
-      res.json({ cert: cert });
-    }
-  });
-});
+wsapi.register(app);
 
 // Tell express from where it should serve static resources
 app.use(express.static(path.join(path.dirname(__dirname), "static")));
