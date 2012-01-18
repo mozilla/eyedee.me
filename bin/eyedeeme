@@ -8,7 +8,8 @@ url = require('url'),
 path = require('path'),
 crypto = require('../lib/crypto'),
 wsapi = require('../lib/wsapi.js'),
-cookieSessions = require("client-sessions");
+cookieSessions = require("client-sessions"),
+db = require('../lib/db.js');
 
 // the key with which session cookies are encrypted
 const COOKIE_SECRET = process.env.SEKRET || 'super sekret sekret';
@@ -121,9 +122,17 @@ wsapi.register(app);
 // Tell express from where it should serve static resources
 app.use(express.static(path.join(path.dirname(__dirname), "static")));
 
-// start listening for connections
-app.listen(PORT, IP_ADDRESS, function () {
-  var address = app.address();
-  localHostname = address.address + ':' + address.port
-  console.log("listening on " + localHostname);
+// connect to the database
+db.connect(function(err) {
+  if (err) {
+    console.log("error connecting to database:", err);
+    process.exit(1);
+  }
+
+  // start listening for connections
+  app.listen(PORT, IP_ADDRESS, function () {
+    var address = app.address();
+    localHostname = address.address + ':' + address.port
+    console.log("listening on " + localHostname);
+  });
 });
