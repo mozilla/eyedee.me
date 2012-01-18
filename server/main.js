@@ -8,7 +8,7 @@ url = require('url'),
 path = require('path'),
 crypto = require('./crypto'),
 wsapi = require('./wsapi.js'),
-cookieSessions = require("cookie-sessions");
+cookieSessions = require("client-sessions");
 
 // the key with which session cookies are encrypted
 const COOKIE_SECRET = process.env.SEKRET || 'super sekret sekret';

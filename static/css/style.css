@@ -52,3 +52,19 @@ body {
 div.content {
     display: none;
 }
+
+#signup .error {
+    display: none;
+    border: 3px solid #ccc;
+    background-color: #eee;
+    min-width: 200px;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 1em;
+    color: #f00;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}

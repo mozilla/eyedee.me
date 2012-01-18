@@ -2,18 +2,24 @@ const db = require('./db.js');
 
 exports.register = function(app) {
   app.get('/api/whoami', function(req, res) {
-    // XXX: write me
-    return res.writeHead(500);
+    res.json({ user: req.session.user || null });
   });
 
-  app.get('/api/signin', function(req, res) {
-    // XXX: write me
-    return res.writeHead(500);
+  app.post('/api/signin', function(req, res) {
+    if (!req.body.user || !req.body.pass || req.body.pass.length < 6) {
+      res.writeHead(400);
+      return res.end();
+    }
+    db.auth(req.body.user, req.body.pass, function(err) {
+      res.writeHead(err ? 401 : 200);
+      res.end();
+    });
   });
 
   app.post('/api/cert_key', function(req, res) {
     // XXX: write me
-    return res.writeHead(500);
+    res.writeHead(500);
+    return res.end();
 
     crypto.cert_key(
       req.body.pubkey, 'lloyd@hilaiel.com', req.body.duration,
