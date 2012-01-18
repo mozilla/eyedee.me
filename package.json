@@ -10,6 +10,6 @@
     "client-sessions": "0.0.2"
   },
   "scripts": {
-    "start": "node server/main.js"
+    "start": "bin/eyedeeme"
   }
 }
