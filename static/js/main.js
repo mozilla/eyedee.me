@@ -3,7 +3,14 @@ function showMain() {
   $(".content#main").fadeIn(400);
 }
 
-function showAuthed() {
+function showAuthed(user) {
+  $(".content").hide();
+  $(".content#manage").fadeIn(400);
+  $(".username").text(user);
+  $("#header .state").html("Hi, <b>" + user + "</b> (<a href=\"#\">logout</a>)");
+  $("#header .state a").click(function() {
+    alert("logout!");
+  });
 }
 
 $(document).ready(function() {
@@ -18,7 +25,8 @@ $(document).ready(function() {
     $("form button").removeAttr('disabled');
   }
 
-  $("form").submit(function() {
+  $("form").submit(function(e) {
+    e.preventDefault();
     $("#signup div.error").hide();
     $("form button").attr('disabled', true);
 
@@ -36,10 +44,10 @@ $(document).ready(function() {
         pass: pass
       },
       success: function() {
-        alert("woohoo");
+        showAuthed(uname);
       },
       error: function() {
-        alert("no love");
+        showError("authentication failure");
       }
     });
   });
@@ -50,10 +58,10 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(r) {
       try {
-        var user = JSON.parse(r).user;
-        if (!user) throw "nope";
-        showAuthed(user);
+        if (!r.user) throw "nope";
+        showAuthed(r.user);
       } catch(e) {
+        console.l
         showMain();
       }
     },
