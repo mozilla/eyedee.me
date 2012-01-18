@@ -1,16 +1,18 @@
 function showMain() {
+  $("#header .state .in").hide();
+  $("#header .state .out").show();
+
   $(".content").hide();
   $(".content#main").fadeIn(400);
+
 }
 
 function showAuthed(user) {
   $(".content").hide();
   $(".content#manage").fadeIn(400);
   $(".username").text(user);
-  $("#header .state").html("Hi, <b>" + user + "</b> (<a href=\"#\">logout</a>)");
-  $("#header .state a").click(function() {
-    alert("logout!");
-  });
+  $("#header .state .out").hide();
+  $("#header .state .in").show();
 }
 
 $(document).ready(function() {
@@ -18,6 +20,14 @@ $(document).ready(function() {
     ev.preventDefault();
     $(".content").hide();
     $(".content#signup").fadeIn(400);
+  });
+
+  $("#header .state .logout").click(function() {
+    $.ajax({
+      url: '/api/signout',
+      success: showMain,
+      error: showMain
+    });
   });
 
   function showError(err) {
