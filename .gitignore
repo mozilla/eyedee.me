@@ -1,2 +1,4 @@
+/static/.well-known/browserid
 /node_modules
 *~
+npm-debug.log

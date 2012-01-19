@@ -9,7 +9,9 @@ path = require('path'),
 crypto = require('../lib/crypto'),
 wsapi = require('../lib/wsapi.js'),
 cookieSessions = require("client-sessions"),
-db = require('../lib/db.js');
+db = require('../lib/db.js'),
+ejs = require('ejs'),
+fs = require('fs');
 
 // the key with which session cookies are encrypted
 const COOKIE_SECRET = process.env.SEKRET || 'super sekret sekret';
@@ -89,32 +91,32 @@ app.use(postprocess.middleware(function(req, body) {
 }));
 
 // use ejs for template rendering
+const VIEW_PATH = path.join(__dirname, "..", "views");
 app.set('view engine', 'ejs');
 app.register('.html', require('ejs'));
-app.set("views", path.join(__dirname, "..", "views"));
+app.set("views", VIEW_PATH);
 
-// serve the "declaration of support"
-app.get('/.well-known/browserid', function(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.render('browserid', {
-    layout: false,
-    pubKey: crypto.pubKey
-  });
+// generate the "declaration of support".  we'll basically write a static file that the
+// static handler (below) will be able to serve up.
+console.log('generating declaration of support');
+const WELL_KNOWN_PATH = path.join(__dirname, "..", "static", ".well-known");
+ejs.renderFile(path.join(VIEW_PATH, 'browserid.ejs'), {
+  layout: false,
+  pubKey: crypto.pubKey
+}, function(err, r) {
+  if (err) throw err;
+  try { fs.mkdirSync(WELL_KNOWN_PATH); } catch(e) {}
+  var p = path.join(WELL_KNOWN_PATH, "browserid");
+  try { fs.unlinkSync(p); } catch(e) {}
+  fs.writeFileSync(p, r);
 });
 
-// serve the "provisioning page"
-app.get('/browserid/provision', function(req, res) {
-  res.setHeader('Content-Type', 'text/html');
-  res.render('provision.html', {
-    layout: false,
-    browserid_origin: determineBrowserIDURL(req)
-  });
-});
-
-// serve the "authentication page"
-app.get('/browserid/sign_in', function(req, res) {
-  res.setHeader('Content-Type', 'text/html');
-  res.render('sign_in.html', { layout: false });
+// now ensure that declaration of support is served with 'application/json'
+app.use(function(req, res, next) {
+  if (req.url === '/.well-known/browserid') {
+    res.setHeader('Content-Type', 'application/json');
+  }
+  next();
 });
 
 wsapi.register(app);

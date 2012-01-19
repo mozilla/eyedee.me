@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="<%= browserid_origin %>/provisioning_api.js"></script>
+<script type="text/javascript" src="https://browserid.org/provisioning_api.js"></script>
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript">
 
@@ -15,7 +15,8 @@
     // is he authenticated to eyedee.me?
     $.get('/api/whoami')
       .success(function(r) {
-        if (email != r.who) {
+        email = email.replace('@eyedee.me', '');
+        if (email != r.user) {
           return fail('user is not authenticated as target user');
         }
 
