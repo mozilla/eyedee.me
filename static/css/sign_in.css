@@ -71,6 +71,16 @@ body {
   bottom: 50px;
   right: 70px;
 }
+
 #main form button {
   font-size: 1.2em;
+}
+
+.content {
+  display: none;
+}
+
+.email {
+    font-weight: bold;
+    color: #666;
 }
