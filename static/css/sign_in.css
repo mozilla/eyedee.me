@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lora', serif;
+    font-size: .9em;
+}
+
+/* style stolen from github.com */
+#header {
+    background: linear-gradient(#FAFAFA,#EAEAEA);
+    background: -moz-linear-gradient(#FAFAFA,#EAEAEA);
+    background: -ms-linear-gradient(#FAFAFA,#EAEAEA);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#FAFAFA),color-stop(100%,#EAEAEA));
+    background: -webkit-linear-gradient(#FAFAFA,#EAEAEA);
+    background: -o-linear-gradient(#FAFAFA,#EAEAEA);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+    background: linear-gradient(#FAFAFA,#EAEAEA);
+    position: relative;
+    z-index: 0;
+    border-bottom: 1px solid #CACACA;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4),0 0 10px rgba(0,0,0,0.1);
+    margin: 0;
+}
+
+#header > div, div.content {
+    margin: auto;
+    max-width: 500px;
+}
+
+#header .title {
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#header .subtitle {
+    font-size: .9em;
+    font-style: italic;
+    margin-left: .4em;
+}
+
+#main .warning {
+    color: #c00;
+    font-weight: bold;
+}
+
+#main {
+  margin: auto;
+  margin-top: 1.5em;
+  max-width: 500px;
+}
+
+#signup .error {
+    display: none;
+    border: 3px solid #ccc;
+    background-color: #eee;
+    min-width: 200px;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 1em;
+    color: #f00;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+#main form div {
+  position: fixed;
+  bottom: 50px;
+  right: 70px;
+}
+#main form button {
+  font-size: 1.2em;
+}
