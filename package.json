@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "2.5.2",
-    "postprocess": "0.0.2",
+    "urlparse": "0.0.1",
     "mysql": "0.9.5",
     "ejs": "0.6.1",
     "jwcrypto": "0.1.1",
