@@ -19,6 +19,8 @@ $(document).ready(function() {
   $(".signin").click(function(ev) {
     ev.preventDefault();
     $(".content").hide();
+    $("#signup input").val("");
+    $("#signup button").removeAttr('disabled');
     $(".content#signup").fadeIn(400);
   });
 
