@@ -90,7 +90,6 @@ app.use(function(req, res, next) {
     if (process.env['BROWSERID_URL']) bid_url = process.env['BROWSERID_URL'];
     else if (req.headers['referer']) {
       var them = urlparse(req.headers['referer']).originOnly().toString();
-      console.log(them);
       if ([ 'https://dev.diresworb.org', 'https://diresworb.org', 'http://127.0.0.1:10002' ].indexOf(them) != -1) {
         bid_url = them;
       }
@@ -101,7 +100,6 @@ app.use(function(req, res, next) {
       res.setHeader('Content-Type', 'text/html');
       var n = r.toString().replace('https://browserid.org', bid_url, 'g');
       res.send(n);
-      console.log(n);
     });
   } else {
     next();

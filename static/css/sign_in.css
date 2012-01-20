@@ -3,6 +3,7 @@ body {
     padding: 0;
     font-family: 'Lora', serif;
     font-size: .9em;
+    color: #333;
 }
 
 /* style stolen from github.com */
@@ -44,13 +45,13 @@ body {
     font-weight: bold;
 }
 
-#main {
+div.content {
   margin: auto;
   margin-top: 1.5em;
   max-width: 500px;
 }
 
-#signup .error {
+.content .error {
     display: none;
     border: 3px solid #ccc;
     background-color: #eee;
@@ -66,13 +67,13 @@ body {
     -webkit-border-radius: 8px;
 }
 
-#main form div {
+.content form div {
   position: fixed;
   bottom: 50px;
   right: 70px;
 }
 
-#main form button {
+.content form button {
   font-size: 1.2em;
 }
 

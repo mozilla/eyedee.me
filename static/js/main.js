@@ -1,10 +1,8 @@
 function showMain() {
   $("#header .state .in").hide();
   $("#header .state .out").show();
-
   $(".content").hide();
   $(".content#main").fadeIn(400);
-
 }
 
 function showAuthed(user) {
