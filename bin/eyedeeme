@@ -53,7 +53,10 @@ app.use(express.bodyParser());
 app.use(cookieSessions({
   cookieName: 'eyedeeme_auth',
   secret: COOKIE_SECRET,
-  cookie: { path: '/api/' }
+  cookie: {
+    path: '/api/',
+    maxAge: (6 * 60 * 60 * 1000)
+  }
 }));
 
 // use ejs for template rendering
