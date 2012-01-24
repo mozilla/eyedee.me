@@ -71,7 +71,6 @@ $(document).ready(function() {
         if (!r.user) throw "nope";
         showAuthed(r.user);
       } catch(e) {
-        console.l
         showMain();
       }
     },
