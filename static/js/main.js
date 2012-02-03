@@ -40,7 +40,7 @@ $(document).ready(function() {
     $("#signup div.error").hide();
     $("form button").attr('disabled', true);
 
-    var uname = $.trim($("form #username").val());
+    var uname = $.trim($("form #username").val().toLowerCase());
     var pass = $.trim($("form #password").val());
     if (!uname.length) return showError("please supply a username");
     if (pass.length < 6) return showError("password is too short");
