@@ -15,7 +15,7 @@
     // is he authenticated to eyedee.me?
     $.get('/api/whoami')
       .success(function(r) {
-        email = email.replace('@eyedee.me', '');
+        email = email.replace('@eyedee.me', '').toLowerCase();
         if (email != r.user) {
           return fail('user is not authenticated as target user');
         }

@@ -1,7 +1,7 @@
 $(document).ready(function() {
   navigator.id.beginAuthentication(function(email) {
     $(".email").text(email);
-    var user = email.replace('@eyedee.me', '')
+    var user = email.replace('@eyedee.me', '').toLowerCase();
 
     // check if that email exists here
     $.ajax({
