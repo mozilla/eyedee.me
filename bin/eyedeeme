@@ -94,7 +94,7 @@ app.use(function(req, res, next) {
     else if (req.headers['referer']) {
       var them = urlparse(req.headers['referer']).originOnly().toString();
       if ([ 'https://dev.diresworb.org', 'https://diresworb.org', 'http://127.0.0.1:10002' ].indexOf(them) != -1 ||
-          /https:\/\/[a-z][a-z0-9\-_]*\.hacksign\.in/.test(them))
+          /https:\/\/[a-z][a-z0-9\-_]*\.personatest\.org/.test(them))
       {
         bid_url = them;
       }
