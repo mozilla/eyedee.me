@@ -98,6 +98,17 @@ app.use(function(req, res, next) {
       {
         bid_url = them;
       }
+      // for our new urls, explicitly hack things so we intentially pull include.js from *old* urls,
+      // this is to ensure we don't break existing sites
+      else if (them === 'https://login.dev.anosrep.org') {
+        bid_url = 'https://dev.diresworb.org';
+      }
+      else if (them === 'https://login.anosrep.org') {
+        bid_url = 'https://diresworb.org';
+      }
+      else if (them === 'https://login.persona.org') {
+        bid_url = 'https://browserid.org';
+      }
     }
     fs.readFile(PROVISIONING_PATH, function (err, r) {
       // don't let the browser cache this, as it varies based on referrer.
