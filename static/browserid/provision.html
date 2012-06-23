@@ -19,6 +19,9 @@
         // Awesome!  The user is authenticated as who we want to provision.  let's
         // generate a keypair
         navigator.id.genKeyPair(function(pubkey) {
+          if (typeof(pubkey) == "string")
+             pubkey = JSON.parse(pubkey);
+
           // finally, once we have a public key from the browser, we'll certify it, and
           // go pass it back
           $.ajax({
