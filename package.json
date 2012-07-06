@@ -8,7 +8,8 @@
     "ejs": "0.6.1",
     "jwcrypto": "0.1.1",
     "client-sessions": "https://github.com/benadida/node-client-sessions/tarball/92fff32",
-    "bcrypt": "0.5.0"
+    "bcrypt": "0.5.0",
+    "postprocess": "0.2.4"
   },
   "scripts": {
     "start": "bin/eyedeeme"

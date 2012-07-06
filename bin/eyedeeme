@@ -80,19 +80,30 @@ ejs.renderFile(path.join(VIEW_PATH, 'browserid.ejs'), {
   fs.writeFileSync(p, r);
 });
 
-// serving of provision.html is special!  because there are several different browserid
-// environments (dev, beta, production), we want all of them to be able to test against
-// browserid.  To accomplish this, we'll dynamically replace the back-references
-// to browserid in provision.html with the requesting server, provided referrer headers
-// are present that we trust.
-const PROVISIONING_PATH = path.join(__dirname, "..", "static", "browserid", "provision.html");
+var pp = require('postprocess')(function(req, buf) {
+  var re = new RegExp('https://browserid.org', 'g');
+  return buf.replace(re, req.persona_url);
+});
+
+// because there are several different browserid environments (dev,
+// beta, production), we want all of them to be able to test against
+// browserid.  To accomplish this, we'll dynamically replace the
+// back-references to browserid in provision.html and sign_in.html with the
+// requesting server, provided referrer headers are present that we trust.
+const STATIC_BASE_PATH = path.join(__dirname, "..", "static");
+const SUB_PATHS = [
+  '/browserid/provision.html', '/browserid/sign_in.html'
+];
+
 app.use(function(req, res, next) {
-  if (req.url === '/browserid/provision.html') {
+  if (SUB_PATHS.indexOf(req.path) !== -1) {
     // what URL shall we sub in?
     var bid_url = 'https://browserid.org';
     if (process.env['BROWSERID_URL']) bid_url = process.env['BROWSERID_URL'];
     else if (req.headers['referer']) {
       var them = urlparse(req.headers['referer']).originOnly().toString();
+      console.log(req.headers);
+      console.log("them:", them);
       if ([ 'https://dev.diresworb.org', 'https://diresworb.org', 'http://127.0.0.1:10002' ].indexOf(them) != -1 ||
           /https:\/\/[a-z][a-z0-9\-_]*\.personatest\.org/.test(them))
       {
@@ -110,13 +121,13 @@ app.use(function(req, res, next) {
         bid_url = 'https://browserid.org';
       }
     }
-    fs.readFile(PROVISIONING_PATH, function (err, r) {
-      // don't let the browser cache this, as it varies based on referrer.
-      res.setHeader('Cache-Control', 'no-store');
-      res.setHeader('Content-Type', 'text/html');
-      var n = r.toString().replace('https://browserid.org', bid_url, 'g');
-      res.send(n);
-    });
+
+    req.persona_url = bid_url;
+
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Content-Type', 'text/html');
+
+    pp(req, res, next); 
   } else {
     next();
   }
@@ -124,7 +135,7 @@ app.use(function(req, res, next) {
 
 // now ensure that declaration of support is served with 'application/json'
 app.use(function(req, res, next) {
-  if (req.url === '/.well-known/browserid') {
+  if (req.path === '/.well-known/browserid') {
     res.setHeader('Content-Type', 'application/json');
   }
   next();
