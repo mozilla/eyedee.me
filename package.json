@@ -11,6 +11,9 @@
     "bcrypt": "0.5.0",
     "postprocess": "0.2.4"
   },
+  "devDependencies": {
+    "awsbox": "*"
+  },
   "scripts": {
     "start": "bin/eyedeeme"
   }
