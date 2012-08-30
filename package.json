@@ -12,7 +12,7 @@
     "postprocess": "0.2.4"
   },
   "devDependencies": {
-    "awsbox": "*"
+    "awsbox": "0.2.17"
   },
   "scripts": {
     "start": "bin/eyedeeme"
