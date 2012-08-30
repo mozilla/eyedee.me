@@ -1,3 +1,11 @@
 {
-  "processes": ["bin/eyedeeme"]
+  "processes": [
+	"bin/eyedeeme"
+  ],
+  "hooks": {
+    "postcreate": "scripts/post_create.sh"
+  },
+  "packages": [
+    "mysql-server"
+  ]
 }
