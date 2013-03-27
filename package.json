@@ -7,7 +7,7 @@
     "mysql": "0.9.5",
     "ejs": "0.6.1",
     "jwcrypto": "0.1.1",
-    "client-sessions": "https://github.com/benadida/node-client-sessions/tarball/92fff32",
+    "client-sessions": "0.1.1",
     "bcrypt": "0.5.0",
     "postprocess": "0.2.4"
   },
