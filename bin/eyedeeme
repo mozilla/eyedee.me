@@ -11,7 +11,10 @@ cookieSessions = require("client-sessions"),
 db = require('../lib/db.js'),
 ejs = require('ejs'),
 fs = require('fs'),
-urlparse = require('urlparse');
+urlparse = require('urlparse'),
+connect_fonts = require('connect-fonts'),
+font_pack_lora = require('connect-fonts-lora'),
+font_pack_opensans = require('connect-fonts-opensans');
 
 // the key with which session cookies are encrypted
 const COOKIE_SECRET = process.env.SEKRET || 'super sekret sekret';
@@ -142,6 +145,13 @@ app.use(function(req, res, next) {
 });
 
 wsapi.register(app);
+
+app.use(connect_fonts.setup({
+  fonts: [ font_pack_lora, font_pack_opensans ],
+  allow_origin: "https://eyedee.me",
+  ua: "all",
+  maxage: 180 * 24 * 60 * 60 * 1000   // 180 days
+}));
 
 // Tell express from where it should serve static resources
 app.use(express.static(path.join(path.dirname(__dirname), "static")));
