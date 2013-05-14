@@ -15,7 +15,7 @@
     "connect-fonts-lora": "0.0.2"
   },
   "devDependencies": {
-    "awsbox": "0.2.17"
+    "awsbox": "0.4.4"
   },
   "scripts": {
     "start": "bin/eyedeeme"
