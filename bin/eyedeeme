@@ -123,6 +123,12 @@ app.use(function(req, res, next) {
       else if (them === 'https://login.persona.org') {
         bid_url = 'https://browserid.org';
       }
+      else if (them === 'https://firefoxos.anosrep.org') {
+        bid_url = 'https://login.anosrep.org';
+      }
+      else if (them === 'https://firefoxos.persona.org') {
+        bid_url = 'https://login.persona.org';
+      }
     }
 
     req.persona_url = bid_url;
