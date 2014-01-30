@@ -28,6 +28,14 @@ reverse proxy / SSL terminator. Once those are in place:
 
 4.  Store the keys somewhere safe.
 
+5.  Create a MySQL user and database:
+
+        $ mysql -uroot -p
+        > CREATE USER 'eyedeeme'@'localhost';
+        > CREATE DATABASE eyedeeme;
+        > GRANT ALL ON eyedeeme.* TO 'eyedeeme'@'localhost';
+        > FLUSH PRIVILEGES;
+
 Running
 -------
 
